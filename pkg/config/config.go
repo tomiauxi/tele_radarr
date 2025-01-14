@@ -19,6 +19,8 @@ type Config struct {
 	RadarrPort       int
 	RadarrAPIKey     string
 	RadarrBaseUrl    string
+	RadarrUsername   string
+	RadarrPassword   string
 }
 
 func LoadConfig() (Config, error) {
@@ -33,6 +35,8 @@ func LoadConfig() (Config, error) {
 	radarrPort := os.Getenv("RBOT_RADARR_PORT")
 	config.RadarrAPIKey = os.Getenv("RBOT_RADARR_API_KEY")
 	config.RadarrBaseUrl = os.Getenv("RBOT_RADARR_BASE_URL")
+	config.RadarrUsername = os.Getenv("RBOT_RADARR_USERNAME")
+	Config.RadarrPassword = os.Getenv("RBOT_RADARR_PASSWORD")
 
 	// Validate required fields
 	if config.TelegramBotToken == "" {
@@ -55,6 +59,11 @@ func LoadConfig() (Config, error) {
 	if config.RadarrHostname == "" {
 		return config, errors.New("RBOT_RADARR_HOSTNAME is empty or not set")
 	}
+	if config.RadarrUsername == "" {
+		return Config, errors.New("RBOT_RADARR_USERNAME is empty or not set")	
+	}
+	if config.RadarrPassword == "" {
+		return Config, errors.New("RBOT_RADARR_PASSWORD is empty or not set")
 	if radarrPort == "" {
 		return config, errors.New("RBOT_RADARR_PORT is empty or not set")
 	}
